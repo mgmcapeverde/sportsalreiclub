@@ -57,6 +57,9 @@ npm run dev          # http://localhost:8787
 
 `npm run deploy` applica le migrazioni al database remoto e pubblica il Worker.
 
+Su Cloudflare (Worker → Impostazioni → Build) il repository collegato è `mgmcapeverde/sportsalreiclub`, ramo `main`,
+e il comando di distribuzione deve essere `npm run deploy` (non `npx wrangler deploy`, che salterebbe le migrazioni).
+
 ## Da verificare
 
 - `src/data/squad.js`: le foto marcate `unconfirmed` vanno verificate (volto e nome).
