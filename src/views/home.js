@@ -1,7 +1,7 @@
 import { html, raw } from '../lib/html.js';
 import { url, pick, longDate } from '../lib/i18n.js';
 import { page, partnerLogo } from './layout.js';
-import { newsUrl, category, newsVisual, teamName, teamShort, compName, roundLabel, shortDate, dayMonth } from './parts.js';
+import { newsUrl, category, newsVisual, teamName, teamCrest, crestClass, compName, roundLabel, shortDate, dayMonth } from './parts.js';
 
 const TROPHY = raw('<svg class="cup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h10v3.4c0 3.2 -2.15 5.6 -5 5.6s-5 -2.4 -5 -5.6z"/><path d="M7 4c-2.4 -0.35 -3.8 0.9 -3.8 2.9c0 2.2 1.8 3.35 3.6 3.5"/><path d="M17 4c2.4 -0.35 3.8 0.9 3.8 2.9c0 2.2 -1.8 3.35 -3.6 3.5"/><path d="M12 12.5v3"/><path d="M10.4 15.5h3.2"/><path d="M8.4 20.5h7.2v-2c0 -0.6 -0.5 -1.1 -1.1 -1.1h-5c-0.6 0 -1.1 0.5 -1.1 1.1z"/></svg>');
 
@@ -57,9 +57,9 @@ function newsBlock(t, news) {
 
 function fixtures(t, teams, upcoming) {
   const card = (m) => html`<div class="match"><div class="comp"><span>${compName(t, m)}</span><span>${dayMonth(t, m.date)}</span></div>
-    <div class="teams"><div class="tm"><div class="crest ${teams.get(m.home_id)?.is_us ? 'h' : 'a'}">${teamShort(teams, m.home_id)}</div><div class="nm">${teamName(teams, m.home_id)}</div></div>
+    <div class="teams"><div class="tm"><div class="crest ${teams.get(m.home_id)?.is_us ? 'h' : 'a'}${crestClass(teams, m.home_id)}">${teamCrest(teams, m.home_id)}</div><div class="nm">${teamName(teams, m.home_id)}</div></div>
     <div class="cvs">${t.match.vs.toUpperCase()}<span class="h2">${m.time || dayMonth(t, m.date)}</span></div>
-    <div class="tm"><div class="crest ${teams.get(m.away_id)?.is_us ? 'h' : 'a'}">${teamShort(teams, m.away_id)}</div><div class="nm">${teamName(teams, m.away_id)}</div></div></div>
+    <div class="tm"><div class="crest ${teams.get(m.away_id)?.is_us ? 'h' : 'a'}${crestClass(teams, m.away_id)}">${teamCrest(teams, m.away_id)}</div><div class="nm">${teamName(teams, m.away_id)}</div></div></div>
     <div class="mfoot"><i class="ti ti-map-pin"></i>${m.venue || roundLabel(t, m) || compName(t, m)}${m.time ? raw(` &middot; ${m.time}`) : ''}</div></div>`;
   return html`<section class="section fixtures-sec"><div class="wrap">
   <div class="sec-h"><h2><span class="sec-eyebrow">${t.home.fixturesEyebrow}</span>${t.home.fixturesTitle}</h2><a href="${url(t.lang, '/season')}">${t.home.fullFixtures} <i class="ti ti-arrow-right"></i></a></div>

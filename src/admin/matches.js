@@ -55,7 +55,8 @@ export async function matchesPage({ db, user, url }) {
   const table = comp.kind === 'league' ? computeTable(teamIds, ms, tieOrder) : [];
 
   const body = html`<div class="head"><div><h1>${M.title}</h1>
-  <p>${M.intro}</p></div></div>
+  <p>${M.intro}</p></div>
+  <a class="btn" href="/admin/squadre">${L.teams.button}</a></div>
 <nav class="tabs">${comps.map((c) => html`<a href="/admin/partite?c=${c.id}"${c.id === comp.id ? raw(' class="on"') : ''}>${c.name_pt}</a>`)}</nav>
 ${missing ? html`<div class="flash warn">${missing === 1 ? M.missing1 : M.missingN(missing)}</div>` : ''}
 <form method="post" action="/admin/partite?c=${comp.id}">

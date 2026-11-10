@@ -3,7 +3,7 @@ import { monthYear, parseDate } from '../lib/i18n.js';
 import { computeTable } from '../lib/standings.js';
 import { today } from '../lib/db.js';
 import { page } from './layout.js';
-import { teamName, teamShort, roundLabel, resultLetter, sponsorInline, dayMonth } from './parts.js';
+import { teamName, teamCrest, crestClass, roundLabel, resultLetter, sponsorInline, dayMonth } from './parts.js';
 
 function fixtureRow(t, teams, comp, m, nextId) {
   const res = resultLetter(teams, m);
@@ -36,7 +36,7 @@ function table(t, teams, rows) {
   const s = t.season.table;
   return html`<div class="tbl-wrap"><table class="standings">
     <thead><tr><th>${s.pos}</th><th class="tm">${s.team}</th><th>${s.p}</th><th>${s.w}</th><th>${s.d}</th><th>${s.l}</th><th>${s.gf}</th><th>${s.ga}</th><th>${s.gd}</th><th>${s.pts}</th></tr></thead>
-    <tbody>${rows.map((r) => html`<tr class="${teams.get(r.team)?.is_us ? 'me' : ''}"><td class="pos">${r.pos}</td><td class="tm"><span class="crest">${teamShort(teams, r.team)}</span>${teamName(teams, r.team)}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd > 0 ? '+' + r.gd : r.gd < 0 ? '−' + -r.gd : '0'}</td><td class="pts">${r.pts}</td></tr>`)}</tbody>
+    <tbody>${rows.map((r) => html`<tr class="${teams.get(r.team)?.is_us ? 'me' : ''}"><td class="pos">${r.pos}</td><td class="tm"><span class="crest${crestClass(teams, r.team)}">${teamCrest(teams, r.team)}</span>${teamName(teams, r.team)}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd > 0 ? '+' + r.gd : r.gd < 0 ? '−' + -r.gd : '0'}</td><td class="pts">${r.pts}</td></tr>`)}</tbody>
   </table></div>`;
 }
 

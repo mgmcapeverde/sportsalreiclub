@@ -10,6 +10,7 @@ import { listNews, createNews, editNews, saveNews } from './news.js';
 import { matchesPage, saveMatches } from './matches.js';
 import { partnersPage, editPartner, savePartner, savePlacements } from './partners.js';
 import { accountPage, saveAccount, setLanguage } from './account.js';
+import { teamsPage, editTeam, saveTeam } from './teams.js';
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
@@ -143,6 +144,8 @@ export async function handleAdmin(request, env, url) {
   if ((m = path.match(/^\/admin\/notizie\/(\d+)\/anteprima$/))) return preview({ ...ctx, id: +m[1] });
 
   if (path === '/admin/partite') return method === 'POST' ? saveMatches({ ...ctx, form }) : matchesPage(ctx);
+  if (path === '/admin/squadre') return teamsPage(ctx);
+  if ((m = path.match(/^\/admin\/squadre\/([a-z0-9-]+)$/))) return method === 'POST' ? saveTeam({ ...ctx, id: m[1], form }) : editTeam({ ...ctx, id: m[1] });
 
   if (path === '/admin/partner') return partnersPage(ctx);
   if (path === '/admin/partner/posizioni' && method === 'POST') return savePlacements({ ...ctx, form });

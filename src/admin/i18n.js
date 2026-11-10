@@ -102,6 +102,12 @@ const it = {
     pages: { home: 'Home', news: 'Notizie', season: 'Stagione', team: 'Prima squadra' },
   },
 
+  teams: {
+    title: 'Squadre e stemmi', intro: 'Lo stemma compare nelle schede delle partite in home e nella classifica. Senza stemma si vede la sigla.',
+    button: 'Squadre e stemmi', all: '← Tutte le squadre', name: 'Nome', short: 'Sigla', shortHint: '(2–4 lettere, se manca lo stemma)',
+    logo: 'Stemma', noLogo: 'Nessuno stemma: si vede la sigla', upload: 'Carica stemma…', remove: 'Togli stemma',
+    logoHint: 'PNG con sfondo trasparente. Viene ritagliato e ridimensionato automaticamente.', save: 'Salva', withLogo: 'con stemma', withoutLogo: 'senza stemma',
+  },
   account: {
     title: 'Account', mine: 'Il mio account',
     password: 'Cambia password', current: 'Password attuale', next: 'Nuova password', min: '(almeno 10 caratteri)', change: 'Cambia password',
@@ -213,6 +219,12 @@ const pt = {
     pages: { home: 'Página inicial', news: 'Notícias', season: 'Época', team: 'Equipa principal' },
   },
 
+  teams: {
+    title: 'Equipas e emblemas', intro: 'O emblema aparece nos cartões dos jogos na página inicial e na classificação. Sem emblema, aparece a sigla.',
+    button: 'Equipas e emblemas', all: '← Todas as equipas', name: 'Nome', short: 'Sigla', shortHint: '(2–4 letras, se não houver emblema)',
+    logo: 'Emblema', noLogo: 'Sem emblema: aparece a sigla', upload: 'Carregar emblema…', remove: 'Retirar emblema',
+    logoHint: 'PNG com fundo transparente. É recortado e redimensionado automaticamente.', save: 'Guardar', withLogo: 'com emblema', withoutLogo: 'sem emblema',
+  },
   account: {
     title: 'Contas', mine: 'A minha conta',
     password: 'Alterar palavra-passe', current: 'Palavra-passe atual', next: 'Nova palavra-passe', min: '(pelo menos 10 caracteres)', change: 'Alterar palavra-passe',

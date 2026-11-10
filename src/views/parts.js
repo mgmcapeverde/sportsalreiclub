@@ -35,6 +35,12 @@ export function sponsorInline(label, p, style = '') {
 // Match helpers
 export function teamName(teams, id) { return teams.get(id)?.name || id; }
 export function teamShort(teams, id) { return teams.get(id)?.short || id.slice(0, 3).toUpperCase(); }
+// Inside a crest circle: the team's logo when it has one, its short name otherwise.
+export function teamCrest(teams, id) {
+  const t = teams.get(id);
+  return t?.logo ? html`<img src="${t.logo}" alt="">` : teamShort(teams, id);
+}
+export const crestClass = (teams, id) => (teams.get(id)?.logo ? ' logo' : '');
 export function compName(t, m) { return t.lang === 'pt' ? m.comp_pt : m.comp_en; }
 export function roundLabel(t, m) { return m.round ? `${t.match.matchday} ${m.round}` : ''; }
 export function weAreHome(teams, m) { return !!teams.get(m.home_id)?.is_us; }

@@ -46,3 +46,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 /* admin preview banner on article previews */
 .preview-bar{position:sticky;top:0;z-index:300;background:#f5b400;color:#120507;font:600 14px/1.4 'Inter',sans-serif;text-align:center;padding:10px 16px}
 .preview-bar a{text-decoration:underline}
+
+/* team crests inside the match and standings circles */
+.crest.logo{background:#fff !important;border-color:transparent !important;padding:5px;overflow:hidden}
+.crest.logo img{width:100%;height:100%;object-fit:contain;display:block}
