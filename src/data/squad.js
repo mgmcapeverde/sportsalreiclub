@@ -23,7 +23,7 @@ export const players = [
   { num: 14, name: "Flavio Lairson Ramos Oliveira", group: 'mf', pos: 'w', photo: "/assets/img/player-14-flavio-oliveira.webp" },
   { num: 15, name: "Wilson Moreira Garcia", group: 'mf', pos: 'cm', photo: null },
   { num: 28, name: "Bruno Luis Varela Pedro", group: 'mf', pos: 'cm', photo: null },
-  { num: 99, name: "João David Sanches Pereira", group: 'mf', pos: 'cm', photo: null },
+  { num: 99, name: "João David Sanches Pereira", group: 'mf', pos: 'cm', photo: "/assets/img/player-99-joao-pereira.webp" },
   { num: 17, name: "Quenedy Moreira Fortes", group: 'fw', pos: 'fw', photo: null },
   { num: 18, name: "Marco Antonio Dos Santos Monteiro", group: 'fw', pos: 'fw', photo: null },
   { num: 19, name: "Diego Brito Almeida", group: 'fw', pos: 'fw', photo: null },
