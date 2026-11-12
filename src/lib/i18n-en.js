@@ -23,7 +23,7 @@ export default {
     newsEyebrow: 'Newsroom', newsTitle: 'Latest news', allNews: 'All news',
     fixturesEyebrow: 'Fixtures', fixturesTitle: 'Upcoming matches', fullFixtures: 'Full fixtures',
     noUpcoming: 'The next fixtures will be published soon.',
-    shopBadge: 'Official shop', shopTitle: 'Jersey kit 25/26', shopAria: 'Shop the 25/26 jersey kit',
+    shopBadge: 'Official kit', shopTitle: 'Jersey kit 25/26', shopAria: 'Shop the 25/26 jersey kit',
     kitAlts: ['Sal Rei home kit detail', 'Sal Rei 25/26 home kit', 'Home kit front', 'Player in tunnel', 'Player wearing kit', 'Sleeve detail'],
     slide: 'Slide',
     mainPartner: 'Main Partner 2026/27',

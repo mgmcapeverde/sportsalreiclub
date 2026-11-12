@@ -14,9 +14,6 @@ function header(t, active, path) {
   </nav>
   <a class="logo" href="${url(t.lang, '/')}" aria-label="Sport Sal Rei Club"><img src="/assets/img/logo-crest.png" alt=""></a>
   <div class="right">
-    <nav class="nav-right">
-      <a href="#">${t.nav.sponsor}</a><a href="#">${t.nav.media}</a><a href="#">${t.nav.shop}</a>
-    </nav>
     <button class="menu-btn" type="button" aria-label="${t.nav.menu}" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
     <div class="lang" id="langSel">
       <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
@@ -29,7 +26,7 @@ function header(t, active, path) {
     </div>
   </div>
 </div>
-<nav class="mnav" id="mnav" aria-label="${t.nav.menu}"><div class="wrap"><div class="mnav-main">${NAV.map(navLink)}</div><div class="mnav-sub"><a href="#">${t.nav.sponsor}</a><a href="#">${t.nav.media}</a><a href="#">${t.nav.shop}</a></div></div></nav>
+<nav class="mnav" id="mnav" aria-label="${t.nav.menu}"><div class="wrap"><div class="mnav-main">${NAV.map(navLink)}</div></div></nav>
 </header>`;
 }
 
@@ -43,7 +40,7 @@ function partnersStrip(t, partners) {
   if (!strip.length) return '';
   return html`<section class="partners"><div class="wrap">
   <div class="pt-head"><h2><span class="sec-eyebrow">${t.partners.eyebrow}</span>${t.partners.title}</h2>
-  <a href="#">${t.partners.become} <i class="ti ti-arrow-right"></i></a></div>
+</div>
   <div class="pt-row">
     ${strip.map((p) => html`<div class="pt-cell"><span class="pt-tier">${t.partners.tiers[p.tier] || t.partners.tiers.official}</span>${p.url ? html`<a href="${p.url}" target="_blank" rel="noopener">${partnerLogo(p, p.logo_class)}</a>` : partnerLogo(p, p.logo_class)}</div>`)}
   </div>
@@ -55,19 +52,14 @@ function footer(t) {
   return html`<div class="forza"><h2>Juntos Somos Mais Fortes</h2></div>
 
 <div class="social"><div class="wrap">
-  <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
-  <a href="#" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
-  <a href="#" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
-  <a href="#" aria-label="TikTok"><i class="ti ti-brand-tiktok"></i></a>
-  <a href="#" aria-label="X"><i class="ti ti-brand-x"></i></a>
+  <a href="https://www.facebook.com/SportSalReiClub" target="_blank" rel="noopener" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+  <a href="https://www.instagram.com/sport_sal_rei_club/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
 </div></div>
 
 <footer class="ft"><div class="wrap">
   <div class="ft-grid">
     <div class="ft-brand"><img src="/assets/img/logo-crest.png" alt="SSRC"><p>${f.brand}</p></div>
-    <div><h4>${f.season}</h4><ul><li><a href="${u('/first-team')}">${f.team}</a></li><li><a href="${u('/season')}">${f.results}</a></li><li><a href="${u('/season')}#standings">${f.standings}</a></li><li><a href="${u('/season')}">${f.fixtures}</a></li></ul></div>
-    <div><h4>${f.club}</h4><ul><li><a href="${u('/club')}">${f.history}</a></li><li><a href="${u('/club')}#honours">${f.honours}</a></li><li><a href="#">${f.stadium}</a></li><li><a href="#">${f.contact}</a></li></ul></div>
-    <div><h4>${f.tickets}</h4><ul><li><a href="#">${f.buyTickets}</a></li><li><a href="#">${f.membership}</a></li><li><a href="#">${f.shop}</a></li><li><a href="#">${f.faq}</a></li></ul></div>
+    <nav class="ft-nav" aria-label="${t.nav.menu}"><ul>${NAV.map(([key, p]) => html`<li><a href="${u(p)}">${t.nav[key]}</a></li>`)}</ul></nav>
   </div>
   <div class="ft-bot"><span>&copy; 1951 — 2026 Sport Sal Rei Club</span><span>${f.place}</span></div>
 </div></footer>`;

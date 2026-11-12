@@ -24,7 +24,7 @@ export function acard(t, n, { readTime = true } = {}) {
 export function newsroomPartner(t, placements) {
   const p = placements.newsroom;
   if (!p) return '';
-  return html`<div class="sp-slim"><div class="wrap"><span class="sp-eyebrow">${t.partners.newsroom}</span>${partnerLogo(p, 'md')}<a class="more" href="#">${t.partners.become} <i class="ti ti-arrow-right"></i></a></div></div>`;
+  return html`<div class="sp-slim"><div class="wrap"><span class="sp-eyebrow">${t.partners.newsroom}</span>${partnerLogo(p, 'md')}</div></div>`;
 }
 
 export function sponsorInline(label, p, style = '') {

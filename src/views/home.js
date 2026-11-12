@@ -99,10 +99,10 @@ ${fixtures(t, teams, upcoming)}
   <div class="shop">
     <div class="left">
       <div class="img"><img src="/assets/img/kit-detail.jpg" alt="${h.kitAlts[0]}"></div>
-      <a class="promo" href="#" aria-label="${h.shopAria}">
+      <div class="promo">
         <span class="kbadge">${h.shopBadge}</span>
         <h2>${h.shopTitle}</h2>
-      </a>
+      </div>
     </div>
     <div class="carousel" id="shopCarousel">
         ${kit.map((k, i) => html`<div class="slide${i === 0 ? ' active' : ''}"><img src="/assets/img/${k}.jpg" alt="${h.kitAlts[i + 1]}"></div>`)}
@@ -113,7 +113,7 @@ ${fixtures(t, teams, upcoming)}
 ${main ? html`<section class="sp-band"><div class="wrap">
   <div class="l"><span class="sp-eyebrow">${h.mainPartner}</span>${partnerLogo(main, 'lg')}</div>
   <div class="r"><p>${h.mainPartnerText}</p>
-  <a href="#">${h.partnerWithUs} <i class="ti ti-arrow-up-right"></i></a></div>
+</div>
 </div></section>` : ''}
 <section class="palm-sec section"><div class="wrap">
   <div class="sec-h"><h2><span class="sec-eyebrow">${h.honoursEyebrow}</span>${h.honoursTitle}</h2><a href="${u('/club')}#honours">${h.clubHistory} <i class="ti ti-arrow-right"></i></a></div>

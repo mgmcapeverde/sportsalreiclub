@@ -23,7 +23,7 @@ export default {
     newsEyebrow: 'Notícias', newsTitle: 'Últimas notícias', allNews: 'Todas as notícias',
     fixturesEyebrow: 'Calendário', fixturesTitle: 'Próximos jogos', fullFixtures: 'Calendário completo',
     noUpcoming: 'Os próximos jogos serão publicados em breve.',
-    shopBadge: 'Loja oficial', shopTitle: 'Equipamento 25/26', shopAria: 'Comprar o equipamento 25/26',
+    shopBadge: 'Equipamento oficial', shopTitle: 'Equipamento 25/26', shopAria: 'Comprar o equipamento 25/26',
     kitAlts: ['Detalhe do equipamento principal do Sal Rei', 'Equipamento principal 25/26 do Sal Rei', 'Equipamento principal, frente', 'Jogador no túnel', 'Jogador com o equipamento', 'Detalhe da manga'],
     slide: 'Imagem',
     mainPartner: 'Parceiro Principal 2026/27',

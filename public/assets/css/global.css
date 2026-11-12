@@ -50,3 +50,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 /* team crests inside the match and standings circles */
 .crest.logo{background:#fff !important;border-color:transparent !important;padding:5px;overflow:hidden}
 .crest.logo img{width:100%;height:100%;object-fit:contain;display:block}
+
+/* footer: brand + the main menu */
+.ft-grid{grid-template-columns:1.6fr 2fr}
+.ft-nav ul{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 28px;list-style:none;margin:0;padding:0}
+@media(max-width:760px){.ft-grid{grid-template-columns:1fr}.ft-nav ul{justify-content:flex-start}}

@@ -44,7 +44,7 @@ export function teamPage({ t, partners, placements }) {
   <a href="${url(t.lang, '/season')}">${s.followLink} <i class="ti ti-arrow-right"></i></a>
 </div></div>
 ${kit ? html`
-<div class="sp-slim"><div class="wrap"><span class="sp-eyebrow">${t.partners.kit}</span>${partnerLogo(kit, 'md')}<a class="more" href="#">${t.partners.kitLink} <i class="ti ti-arrow-right"></i></a></div></div>` : ''}
+<div class="sp-slim"><div class="wrap"><span class="sp-eyebrow">${t.partners.kit}</span>${partnerLogo(kit, 'md')}<span class="more">${t.partners.kitLink}</span></div></div>` : ''}
 `;
   return page({ t, title: s.title, css: ['first-team', 'sponsor'], active: 'firstTeam', path: '/first-team', body, partners, description: s.sub });
 }
