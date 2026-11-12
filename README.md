@@ -38,6 +38,13 @@ Impostazioni sul Worker (Cloudflare → Impostazioni → Variabili e segreti):
 Bucket R2 `sportsalreiclub-media` (binding `MEDIA`) per le immagini caricate, servite su `/media/...`.
 In locale: `.dev.vars` con `SETUP_KEY=...` (e facoltativamente `ANTHROPIC_API_KEY=...`).
 
+## Caratteri e icone
+
+Caratteri (Inter, Bebas Neue) e icone (Tabler Icons 3.1.0) sono dentro il sito, in `public/assets/fonts/`
+con `public/assets/css/fonts.css`: le pagine non fanno richieste a Google o ad altri servizi esterni
+(vedi la pagina `/privacy`). Il file delle icone contiene **solo le icone usate**: per usarne una nuova
+(`ti-...`) va rigenerato `tabler-icons-subset.woff2` e aggiunta la sua riga in `fonts.css`.
+
 ## Classifica
 
 Punti 3/1/0. A parità: punti negli scontri diretti, differenza reti negli scontri diretti, gol fatti

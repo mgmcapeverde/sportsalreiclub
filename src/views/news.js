@@ -61,13 +61,13 @@ function facts(raw) {
   try { return JSON.parse(raw || '[]'); } catch { return []; }
 }
 
-export function articlePage({ t, a, more, partners, placements }) {
+export function articlePage({ t, a, more, partners, placements, origin }) {
   const n = t.news;
   const title = pick(a, 'title', t.lang);
   const pull = pick(a, 'pull', t.lang);
   const kv = facts(pick(a, 'facts', t.lang));
   const path = `/news/${a.slug}`;
-  const share = encodeURIComponent(`https://sport-sal-rei-club.mgm-523.workers.dev${url(t.lang, path)}`);
+  const share = encodeURIComponent(`${origin}${url(t.lang, path)}`);
   const body = html`
 <article>
 <section class="art-hero">

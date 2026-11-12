@@ -17,8 +17,7 @@ function shell(L, title, body) {
 <meta name="robots" content="noindex">
 <title>${title} — ${L.appTitle}</title>
 <link rel="icon" href="/assets/img/logo-crest.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/fonts.css">
 <link rel="stylesheet" href="/assets/admin/admin.css">
 </head><body data-lang="${L.lang}">${body}<script src="/assets/admin/admin.js" defer></script></body></html>`);
 }

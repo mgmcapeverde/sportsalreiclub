@@ -129,5 +129,20 @@ export default {
     jan2005: 'January 2005',
   },
 
+  privacy: {
+    tag: 'Privacy', title: 'Privacy & cookies', updated: 'Last updated: 12 November 2026',
+    lead: 'This website does not track you. It sets no advertising or statistics cookies and does not ask visitors for personal data.',
+    sections: [
+      ['Who runs this website', ['Sport Sal Rei Club, Sal Rei, island of Boa Vista, Cape Verde. For any question about this page or your data, write to us through the club’s Facebook page (facebook.com/SportSalReiClub).']],
+      ['What data we collect', ['None from visitors. There are no forms, no newsletter and no visitor accounts on this website. Only the club staff who update the content log in, to a separate management area.']],
+      ['Cookies', ['We use no cookies for visitors. The only cookie on this website is a technical session cookie, set when club staff log in to the management area; it is strictly necessary for that login to work and is deleted when they log out. That is why there is no cookie banner.']],
+      ['Hosting', ['The website runs on Cloudflare (Cloudflare, Inc.). Like every web server, Cloudflare processes technical data such as your IP address, browser type and the page requested, in order to deliver the pages and protect the site from attacks. Cloudflare’s privacy policy: cloudflare.com/privacypolicy.']],
+      ['Fonts, icons and images', ['Fonts, icons and images are served by this website itself. Opening a page sends no requests to Google or to other third-party services.']],
+      ['Links to other websites', ['The Facebook, Instagram, WhatsApp and X buttons are plain links: nothing is shared with those services unless you click them. Once you are on their websites, their own privacy policies apply.']],
+      ['Your rights', ['You can ask us what data we hold about you, and ask for it to be corrected or deleted, by writing to us as above. You can also contact the data protection authority: in Cape Verde, the Comissão Nacional de Proteção de Dados (CNPD); in the European Union, the authority of your country.']],
+      ['Changes', ['If this page changes, the new version is published here with its date.']],
+    ],
+  },
+
   notFound: { title: 'Page not found', text: 'The page you are looking for does not exist or has been moved.', back: 'Back to the home page' },
 };

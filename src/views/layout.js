@@ -61,7 +61,7 @@ function footer(t) {
     <div class="ft-brand"><img src="/assets/img/logo-crest.png" alt="SSRC"><p>${f.brand}</p></div>
     <nav class="ft-nav" aria-label="${t.nav.menu}"><ul>${NAV.map(([key, p]) => html`<li><a href="${u(p)}">${t.nav[key]}</a></li>`)}</ul></nav>
   </div>
-  <div class="ft-bot"><span>&copy; 1951 — 2026 Sport Sal Rei Club</span><span>${f.place}</span></div>
+  <div class="ft-bot"><span>&copy; 1951 — 2026 Sport Sal Rei Club · <a href="${u('/privacy')}">${t.privacy.title}</a></span><span>${f.place}</span></div>
 </div></footer>`;
 }
 
@@ -75,10 +75,7 @@ export function page({ t, title, css, active, path, body, partners = [], descrip
 ${description ? html`<meta name="description" content="${description}">` : ''}
 <link rel="alternate" hreflang="${alt}" href="${url(alt, path)}">
 <link rel="icon" href="/assets/img/logo-crest.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.1.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="/assets/css/fonts.css">
 ${css.map((c) => html`<link rel="stylesheet" href="/assets/css/${c}.css">\n`)}<link rel="stylesheet" href="/assets/css/global.css">
 </head>
 <body>

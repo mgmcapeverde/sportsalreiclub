@@ -1,0 +1,24 @@
+/* Self-hosted fonts (Inter, Bebas Neue: SIL OFL 1.1; Tabler Icons 3.1.0: MIT). No third-party requests. */
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:400;src:url(/assets/fonts/inter-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:400;src:url(/assets/fonts/inter-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/inter-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/inter-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:600;src:url(/assets/fonts/inter-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:600;src:url(/assets/fonts/inter-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:700;src:url(/assets/fonts/inter-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:700;src:url(/assets/fonts/inter-latin-ext-700-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Bebas Neue';font-style:normal;font-display:swap;font-weight:400;src:url(/assets/fonts/bebas-neue-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Bebas Neue';font-style:normal;font-display:swap;font-weight:400;src:url(/assets/fonts/bebas-neue-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'tabler-icons';font-style:normal;font-weight:400;font-display:block;src:url(/assets/fonts/tabler-icons-subset.woff2) format('woff2')}
+.ti{font-family:'tabler-icons'!important;speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.ti-arrow-left:before{content:"\ea19"}
+.ti-arrow-right:before{content:"\ea1f"}
+.ti-brand-facebook:before{content:"\ec1a"}
+.ti-brand-instagram:before{content:"\ec20"}
+.ti-brand-whatsapp:before{content:"\ec74"}
+.ti-brand-x:before{content:"\fc0f"}
+.ti-calendar:before{content:"\ea53"}
+.ti-chevron-down:before{content:"\ea5f"}
+.ti-clock:before{content:"\ea70"}
+.ti-map-pin:before{content:"\eae8"}
+.ti-user:before{content:"\eb4d"}

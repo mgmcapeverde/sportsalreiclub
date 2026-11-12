@@ -55,3 +55,5 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 .ft-grid{grid-template-columns:1.6fr 2fr}
 .ft-nav ul{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 28px;list-style:none;margin:0;padding:0}
 @media(max-width:760px){.ft-grid{grid-template-columns:1fr}.ft-nav ul{justify-content:flex-start}}
+.ft-bot a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.ft-bot a:hover{color:var(--gold)}

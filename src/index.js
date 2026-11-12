@@ -6,6 +6,7 @@ import { homePage } from './views/home.js';
 import { seasonPage } from './views/season.js';
 import { teamPage } from './views/team.js';
 import { clubPage } from './views/club.js';
+import { privacyPage } from './views/privacy.js';
 import { newsPage, articlePage } from './views/news.js';
 import { handleAdmin, serveMedia } from './admin/index.js';
 
@@ -55,6 +56,7 @@ async function site(request, env, lang, path) {
   }
   if (path === '/first-team') return respond(teamPage(common));
   if (path === '/club') return respond(clubPage(common));
+  if (path === '/privacy') return respond(privacyPage(common));
   if (path === '/news') {
     const cat = new URL(request.url).searchParams.get('cat') || '';
     return respond(newsPage({ ...common, news: await db.getNewsList(DB), cat }));
@@ -64,7 +66,7 @@ async function site(request, env, lang, path) {
     const a = await db.getArticle(DB, m[1]);
     if (!a) return notFound(t, partners);
     const more = (await db.getNewsList(DB, { limit: 4 })).filter((x) => x.slug !== a.slug).slice(0, 3);
-    return respond(articlePage({ ...common, a, more }));
+    return respond(articlePage({ ...common, a, more, origin: new URL(request.url).origin }));
   }
   return notFound(t, partners);
 }

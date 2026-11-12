@@ -129,5 +129,20 @@ export default {
     jan2005: 'Janeiro de 2005',
   },
 
+  privacy: {
+    tag: 'Privacidade', title: 'Privacidade e cookies', updated: 'Última atualização: 12 de novembro de 2026',
+    lead: 'Este site não o segue. Não usa cookies de publicidade nem de estatísticas e não pede dados pessoais aos visitantes.',
+    sections: [
+      ['Quem gere este site', ['Sport Sal Rei Club, Sal Rei, ilha da Boa Vista, Cabo Verde. Para qualquer questão sobre esta página ou sobre os seus dados, escreva-nos através da página de Facebook do clube (facebook.com/SportSalReiClub).']],
+      ['Que dados recolhemos', ['Nenhum dos visitantes. Este site não tem formulários, newsletter nem contas para visitantes. Só os responsáveis do clube que atualizam os conteúdos entram, numa área de gestão separada.']],
+      ['Cookies', ['Não usamos cookies para os visitantes. O único cookie deste site é um cookie técnico de sessão, criado quando os responsáveis do clube entram na área de gestão; é estritamente necessário para essa entrada funcionar e é apagado quando saem. Por isso não há aviso de cookies.']],
+      ['Alojamento', ['O site funciona na Cloudflare (Cloudflare, Inc.). Como qualquer servidor web, a Cloudflare trata dados técnicos como o endereço IP, o tipo de navegador e a página pedida, para entregar as páginas e proteger o site contra ataques. Política de privacidade da Cloudflare: cloudflare.com/privacypolicy.']],
+      ['Tipos de letra, ícones e imagens', ['Os tipos de letra, os ícones e as imagens são servidos pelo próprio site. Abrir uma página não envia pedidos à Google nem a outros serviços externos.']],
+      ['Ligações para outros sites', ['Os botões de Facebook, Instagram, WhatsApp e X são simples ligações: nada é partilhado com esses serviços se não clicar neles. Depois de entrar nesses sites, aplicam-se as políticas de privacidade deles.']],
+      ['Os seus direitos', ['Pode pedir-nos que dados temos sobre si e pedir que sejam corrigidos ou apagados, escrevendo-nos como indicado acima. Pode também contactar a autoridade de proteção de dados: em Cabo Verde, a Comissão Nacional de Proteção de Dados (CNPD); na União Europeia, a autoridade do seu país.']],
+      ['Alterações', ['Se esta página mudar, a nova versão é publicada aqui com a respetiva data.']],
+    ],
+  },
+
   notFound: { title: 'Página não encontrada', text: 'A página que procura não existe ou foi movida.', back: 'Voltar à página inicial' },
 };
