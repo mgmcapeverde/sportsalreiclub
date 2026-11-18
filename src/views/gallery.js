@@ -23,7 +23,7 @@ export function galleryPage({ t, teams, albums, partners }) {
       <span class="n">${count(g, a.photos)}</span></span>
   </a>`)}</div>` : html`<p class="gal-empty">${g.empty}</p>`}
 </div></section>`;
-  return page({ t, title: g.title, css: ['site', 'gallery'], active: 'gallery', path: '/gallery', body, partners, description: g.sub });
+  return page({ t, title: g.title, css: ['site', 'sponsor', 'gallery'], active: 'gallery', path: '/gallery', body, partners, description: g.sub });
 }
 
 export function albumPage({ t, teams, album, partners }) {
@@ -47,5 +47,5 @@ export function albumPage({ t, teams, album, partners }) {
   <button class="lb-n" type="button" aria-label="${g.next}"><i class="ti ti-arrow-right"></i></button>
   <span class="lb-c"></span>
 </div>`;
-  return page({ t, title, css: ['site', 'gallery'], active: 'gallery', path: `/gallery/${m.id}`, body, partners, description: `${g.title}: ${title}` });
+  return page({ t, title, css: ['site', 'sponsor', 'gallery'], active: 'gallery', path: `/gallery/${m.id}`, body, partners, description: `${g.title}: ${title}` });
 }
