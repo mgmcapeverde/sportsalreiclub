@@ -7,6 +7,7 @@ import { seasonPage } from './views/season.js';
 import { teamPage } from './views/team.js';
 import { clubPage } from './views/club.js';
 import { privacyPage } from './views/privacy.js';
+import { galleryPage, albumPage } from './views/gallery.js';
 import { newsPage, articlePage } from './views/news.js';
 import { handleAdmin, serveMedia } from './admin/index.js';
 
@@ -45,18 +46,28 @@ async function site(request, env, lang, path) {
   const common = { t, partners, placements };
 
   if (path === '/') {
-    const [teams, last, upcoming, news] = await Promise.all([
-      db.getTeams(DB), db.getLastResult(DB), db.getUpcoming(DB, 3), db.getNewsList(DB, { limit: 3 }),
+    const [teams, last, upcoming, news, photos] = await Promise.all([
+      db.getTeams(DB), db.getLastResult(DB), db.getUpcoming(DB, 3), db.getNewsList(DB, { limit: 3 }), db.getPhotoCounts(DB),
     ]);
-    return respond(homePage({ ...common, teams, last, upcoming, news }));
+    return respond(homePage({ ...common, teams, last, upcoming, news, photos }));
   }
   if (path === '/season') {
-    const [teams, comps] = await Promise.all([db.getTeams(DB), db.getSeason(DB)]);
-    return respond(seasonPage({ ...common, teams, comps }));
+    const [teams, comps, photos] = await Promise.all([db.getTeams(DB), db.getSeason(DB), db.getPhotoCounts(DB)]);
+    return respond(seasonPage({ ...common, teams, comps, photos }));
   }
   if (path === '/first-team') return respond(teamPage(common));
   if (path === '/club') return respond(clubPage(common));
   if (path === '/privacy') return respond(privacyPage(common));
+  if (path === '/gallery') {
+    const [teams, albums] = await Promise.all([db.getTeams(DB), db.getAlbums(DB)]);
+    return respond(galleryPage({ ...common, teams, albums }));
+  }
+  const g = path.match(/^\/gallery\/(\d+)$/);
+  if (g) {
+    const [teams, album] = await Promise.all([db.getTeams(DB), db.getAlbum(DB, +g[1])]);
+    if (!album) return notFound(t, partners);
+    return respond(albumPage({ ...common, teams, album }));
+  }
   if (path === '/news') {
     const cat = new URL(request.url).searchParams.get('cat') || '';
     return respond(newsPage({ ...common, news: await db.getNewsList(DB), cat }));

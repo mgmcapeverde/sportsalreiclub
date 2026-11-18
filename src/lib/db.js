@@ -58,3 +58,26 @@ export async function getNewsList(db, { limit = 100, includeDrafts = false } = {
 export async function getArticle(db, slug, { includeDrafts = false } = {}) {
   return db.prepare(`SELECT * FROM news WHERE slug = ? ${includeDrafts ? '' : "AND status = 'published'"}`).bind(slug).first();
 }
+
+// ---------- match galleries ----------
+// Albums: every match with at least one photo, newest first, with its cover and photo count.
+export async function getAlbums(db) {
+  const { results } = await db.prepare(`SELECT ${MATCH_COLS}, g.n AS photos,
+      (SELECT thumb FROM match_photos p WHERE p.match_id = m.id ORDER BY p.sort, p.id LIMIT 1) AS cover
+    FROM (SELECT match_id, COUNT(*) AS n FROM match_photos GROUP BY match_id) g
+    JOIN matches m ON m.id = g.match_id JOIN competitions c ON c.id = m.competition_id
+    ORDER BY m.date DESC, m.id DESC`).all();
+  return results;
+}
+
+export async function getAlbum(db, id) {
+  const match = await db.prepare(`SELECT ${MATCH_COLS} FROM matches m JOIN competitions c ON c.id = m.competition_id WHERE m.id = ?`).bind(id).first();
+  if (!match) return null;
+  const { results: photos } = await db.prepare('SELECT id, key, thumb, w, h FROM match_photos WHERE match_id = ? ORDER BY sort, id').bind(id).all();
+  return photos.length ? { match, photos } : null;
+}
+
+export async function getPhotoCounts(db) {
+  const { results } = await db.prepare('SELECT match_id, COUNT(*) AS n FROM match_photos GROUP BY match_id').all();
+  return new Map(results.map((r) => [r.match_id, r.n]));
+}

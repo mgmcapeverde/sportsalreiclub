@@ -8,7 +8,7 @@ export default {
 
   siteName: 'Sport Sal Rei Club',
   homeTitle: 'Sport Sal Rei Club — Official Website',
-  nav: { home: 'Home', firstTeam: 'First Team', season: 'Season', club: 'Club', news: 'News', sponsor: 'Sponsor', media: 'Media', shop: 'Shop', menu: 'Menu' },
+  nav: { home: 'Home', firstTeam: 'First Team', season: 'Season', club: 'Club', news: 'News', gallery: 'Gallery', sponsor: 'Sponsor', media: 'Media', shop: 'Shop', menu: 'Menu' },
 
   home: {
     heroA: 'We are', heroB: 'Sport Sal Rei Club',
@@ -129,6 +129,13 @@ export default {
     jan2005: 'January 2005',
   },
 
+  gallery: {
+    kicker: 'Match photos', title: 'Gallery', sub: 'Photos from Sport Sal Rei Club matches, one album per game.',
+    empty: 'No photos yet: the first albums are coming soon.', all: 'All albums', photo: 'Photo',
+    one: '1 photo', many: (n) => `${n} photos`, photosLink: (n) => (n === 1 ? '1 photo' : `${n} photos`),
+    close: 'Close', prev: 'Previous photo', next: 'Next photo',
+  },
+
   privacy: {
     tag: 'Privacy', title: 'Privacy & cookies', updated: 'Last updated: 12 November 2026',
     lead: 'This website does not track you. It sets no advertising or statistics cookies and does not ask visitors for personal data.',
@@ -138,6 +145,7 @@ export default {
       ['Cookies', ['We use no cookies for visitors. The only cookie on this website is a technical session cookie, set when club staff log in to the management area; it is strictly necessary for that login to work and is deleted when they log out. That is why there is no cookie banner.']],
       ['Hosting', ['The website runs on Cloudflare (Cloudflare, Inc.). Like every web server, Cloudflare processes technical data such as your IP address, browser type and the page requested, in order to deliver the pages and protect the site from attacks. Cloudflare’s privacy policy: cloudflare.com/privacypolicy.']],
       ['Fonts, icons and images', ['Fonts, icons and images are served by this website itself. Opening a page sends no requests to Google or to other third-party services.']],
+      ['Match photos', ['The gallery publishes photos taken at our matches, where players, staff and supporters may appear. If you are in a photo and would like it removed, write to us as above and we will take it down.']],
       ['Links to other websites', ['The Facebook, Instagram, WhatsApp and X buttons are plain links: nothing is shared with those services unless you click them. Once you are on their websites, their own privacy policies apply.']],
       ['Your rights', ['You can ask us what data we hold about you, and ask for it to be corrected or deleted, by writing to us as above. You can also contact the data protection authority: in Cape Verde, the Comissão Nacional de Proteção de Dados (CNPD); in the European Union, the authority of your country.']],
       ['Changes', ['If this page changes, the new version is published here with its date.']],

@@ -8,7 +8,7 @@ export default {
 
   siteName: 'Sport Sal Rei Club',
   homeTitle: 'Sport Sal Rei Club — Site Oficial',
-  nav: { home: 'Início', firstTeam: 'Equipa Principal', season: 'Época', club: 'Clube', news: 'Notícias', sponsor: 'Patrocínios', media: 'Media', shop: 'Loja', menu: 'Menu' },
+  nav: { home: 'Início', firstTeam: 'Equipa Principal', season: 'Época', club: 'Clube', news: 'Notícias', gallery: 'Galeria', sponsor: 'Patrocínios', media: 'Media', shop: 'Loja', menu: 'Menu' },
 
   home: {
     heroA: 'Somos o', heroB: 'Sport Sal Rei Club',
@@ -129,6 +129,13 @@ export default {
     jan2005: 'Janeiro de 2005',
   },
 
+  gallery: {
+    kicker: 'Fotografias dos jogos', title: 'Galeria', sub: 'Fotografias dos jogos do Sport Sal Rei Club, um álbum por jogo.',
+    empty: 'Ainda não há fotografias: os primeiros álbuns chegam em breve.', all: 'Todos os álbuns', photo: 'Fotografia',
+    one: '1 fotografia', many: (n) => `${n} fotografias`, photosLink: (n) => (n === 1 ? '1 foto' : `${n} fotos`),
+    close: 'Fechar', prev: 'Fotografia anterior', next: 'Fotografia seguinte',
+  },
+
   privacy: {
     tag: 'Privacidade', title: 'Privacidade e cookies', updated: 'Última atualização: 12 de novembro de 2026',
     lead: 'Este site não o segue. Não usa cookies de publicidade nem de estatísticas e não pede dados pessoais aos visitantes.',
@@ -138,6 +145,7 @@ export default {
       ['Cookies', ['Não usamos cookies para os visitantes. O único cookie deste site é um cookie técnico de sessão, criado quando os responsáveis do clube entram na área de gestão; é estritamente necessário para essa entrada funcionar e é apagado quando saem. Por isso não há aviso de cookies.']],
       ['Alojamento', ['O site funciona na Cloudflare (Cloudflare, Inc.). Como qualquer servidor web, a Cloudflare trata dados técnicos como o endereço IP, o tipo de navegador e a página pedida, para entregar as páginas e proteger o site contra ataques. Política de privacidade da Cloudflare: cloudflare.com/privacypolicy.']],
       ['Tipos de letra, ícones e imagens', ['Os tipos de letra, os ícones e as imagens são servidos pelo próprio site. Abrir uma página não envia pedidos à Google nem a outros serviços externos.']],
+      ['Fotografias dos jogos', ['A galeria publica fotografias tiradas nos nossos jogos, onde podem aparecer jogadores, equipa técnica e adeptos. Se aparece numa fotografia e prefere que seja retirada, escreva-nos como indicado acima e retiramo-la.']],
       ['Ligações para outros sites', ['Os botões de Facebook, Instagram, WhatsApp e X são simples ligações: nada é partilhado com esses serviços se não clicar neles. Depois de entrar nesses sites, aplicam-se as políticas de privacidade deles.']],
       ['Os seus direitos', ['Pode pedir-nos que dados temos sobre si e pedir que sejam corrigidos ou apagados, escrevendo-nos como indicado acima. Pode também contactar a autoridade de proteção de dados: em Cabo Verde, a Comissão Nacional de Proteção de Dados (CNPD); na União Europeia, a autoridade do seu país.']],
       ['Alterações', ['Se esta página mudar, a nova versão é publicada aqui com a respetiva data.']],

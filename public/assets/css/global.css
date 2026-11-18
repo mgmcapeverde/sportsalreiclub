@@ -57,3 +57,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 @media(max-width:760px){.ft-grid{grid-template-columns:1fr}.ft-nav ul{justify-content:flex-start}}
 .ft-bot a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .ft-bot a:hover{color:var(--gold)}
+
+/* links to a match's photo album (season list, home last result) */
+.fx .fx-ph,.last-ph{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.fx .fx-ph:hover,.last-ph:hover{color:#fff}
+.last-ph{margin-top:14px}

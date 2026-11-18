@@ -3,6 +3,7 @@ import { computeTable } from '../lib/standings.js';
 import { today } from '../lib/db.js';
 import { adminPage, htmlResponse, redirect } from './ui.js';
 import { adminT, adminDate } from './i18n.js';
+import { photoCounts, photoLink, deletePhotos } from './gallery.js';
 
 async function load(db) {
   const { results: comps } = await db.prepare('SELECT * FROM competitions WHERE archived = 0 ORDER BY sort, id').all();
@@ -10,7 +11,7 @@ async function load(db) {
   return { comps, teams, byId: new Map(teams.map((x) => [x.id, x])) };
 }
 
-function matchRow(L, m, byId) {
+function matchRow(L, m, byId, photos) {
   const M = L.matches;
   const us = byId.get(m.home_id)?.is_us || byId.get(m.away_id)?.is_us;
   const done = m.status === 'played';
@@ -20,6 +21,7 @@ function matchRow(L, m, byId) {
   <span class="sc"><input class="score" name="hs_${m.id}" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${m.home_score ?? ''}" aria-label="${M.goals} ${byId.get(m.home_id)?.name}">
     <b>–</b><input class="score" name="as_${m.id}" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${m.away_score ?? ''}" aria-label="${M.goals} ${byId.get(m.away_id)?.name}"></span>
   <span class="teams-a">${byId.get(m.away_id)?.name}</span>
+  ${photoLink(L.gallery, m, photos.get(m.id) || 0)}
   <details class="status"><summary>${m.status === 'postponed' ? M.postponed : M.edit}</summary>
     <div class="more">
       <div><label for="d_${m.id}">${M.date}</label><input id="d_${m.id}" name="d_${m.id}" type="date" value="${m.date}"></div>
@@ -47,6 +49,7 @@ export async function matchesPage({ db, user, url }) {
   const ms = all.filter((m) => m.competition_id === comp.id);
   const { results: ties } = await db.prepare('SELECT * FROM tie_order WHERE competition_id = ?').bind(comp.id).all();
   const tieOrder = Object.fromEntries(ties.map((x) => [x.team_id, x.priority]));
+  const photos = await photoCounts(db);
 
   const rounds = new Map();
   for (const m of ms) { const k = m.round ?? 0; if (!rounds.has(k)) rounds.set(k, []); rounds.get(k).push(m); }
@@ -60,7 +63,7 @@ export async function matchesPage({ db, user, url }) {
 <nav class="tabs">${comps.map((c) => html`<a href="/admin/partite?c=${c.id}"${c.id === comp.id ? raw(' class="on"') : ''}>${c.name_pt}</a>`)}</nav>
 ${missing ? html`<div class="flash warn">${missing === 1 ? M.missing1 : M.missingN(missing)}</div>` : ''}
 <form method="post" action="/admin/partite?c=${comp.id}">
-  ${[...rounds].map(([r, list]) => html`<h2 class="round-h">${r ? `${M.round} ${r}` : comp.name_pt}</h2>${list.map((m) => matchRow(L, m, byId))}`)}
+  ${[...rounds].map(([r, list]) => html`<h2 class="round-h">${r ? `${M.round} ${r}` : comp.name_pt}</h2>${list.map((m) => matchRow(L, m, byId, photos))}`)}
   ${!ms.length ? html`<p class="muted">${M.none}</p>` : ''}
   <div class="bar"><button class="btn primary" type="submit" name="action" value="save">${M.save}</button>
     <span class="hint">${M.saveHint}</span></div>
@@ -98,7 +101,7 @@ ${missing ? html`<div class="flash warn">${missing === 1 ? M.missing1 : M.missin
 
 const score = (v) => { const s = String(v ?? '').trim(); return /^\d{1,2}$/.test(s) ? Number(s) : null; };
 
-export async function saveMatches({ db, url, form }) {
+export async function saveMatches({ db, env, url, form }) {
   const c = url.searchParams.get('c') || '';
   const back = (msg) => redirect(`/admin/partite?c=${encodeURIComponent(c)}&msg=${msg}`);
   const action = form.get('action');
@@ -123,7 +126,11 @@ export async function saveMatches({ db, url, form }) {
 
   const stmts = [];
   for (const id of form.getAll('ids').map(Number).filter(Boolean)) {
-    if (form.get(`del_${id}`)) { stmts.push(db.prepare('DELETE FROM matches WHERE id = ?').bind(id)); continue; }
+    if (form.get(`del_${id}`)) {
+      const { results: gone } = await db.prepare('SELECT * FROM match_photos WHERE match_id = ?').bind(id).all();
+      await deletePhotos(db, env, gone);
+      stmts.push(db.prepare('DELETE FROM matches WHERE id = ?').bind(id)); continue;
+    }
     const hs = score(form.get(`hs_${id}`)), as = score(form.get(`as_${id}`));
     const postponed = form.get(`s_${id}`) === 'postponed';
     const status = postponed ? 'postponed' : hs !== null && as !== null ? 'played' : 'scheduled';

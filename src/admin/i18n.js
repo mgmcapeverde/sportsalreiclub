@@ -77,6 +77,14 @@ const it = {
     add: 'Aggiungi una partita', home: 'In casa', away: 'In trasferta', roundOpt: 'Giornata', timeOpt: 'Ora', optional: '(facoltativa)', addTo: 'Aggiungi a',
   },
 
+  gallery: {
+    title: 'Foto della partita', count: (n) => n === 1 ? '1 foto' : `${n} foto`, view: 'Vedi la galleria sul sito',
+    add: 'Aggiungi foto', addHint: 'Puoi sceglierne tante insieme, di qualsiasi dimensione: vengono ridotte e compresse qui sul tuo dispositivo prima di essere caricate (circa 300–500 KB l’una). La prima foto è la copertina dell’album.',
+    choose: 'Scegli le foto…', photos: 'Foto caricate', none: 'Nessuna foto per questa partita.',
+    cover: 'Copertina', makeCover: 'Usa come copertina', delete: 'Elimina', confirmDelete: 'Eliminare questa foto? Non si può annullare.',
+    deleted: 'Foto eliminata.', coverSet: 'Copertina aggiornata.',
+  },
+
   partners: {
     title: 'Partner', intro: 'I partner attivi con “Mostra nella fascia” compaiono in fondo a tutte le pagine, in quest’ordine.',
     add: '+ Nuovo partner', inStrip: 'nella fascia partner', active: 'Attivo', hidden: 'Nascosto', all: '← Tutti i partner', newTitle: 'Nuovo partner',
@@ -192,6 +200,14 @@ const pt = {
     ties: 'Desempate manual (sorteio ou jogo de desempate)', tiesHint: 'Só é preciso se duas equipas continuarem empatadas depois de todos os critérios. Número mais baixo = posição mais alta. Deixe vazio para não usar.',
     tieLabel: 'Ordem manual', saveTies: 'Guardar ordem',
     add: 'Adicionar um jogo', home: 'Em casa', away: 'Fora', roundOpt: 'Jornada', timeOpt: 'Hora', optional: '(opcional)', addTo: 'Adicionar a',
+  },
+
+  gallery: {
+    title: 'Fotografias do jogo', count: (n) => n === 1 ? '1 fotografia' : `${n} fotografias`, view: 'Ver a galeria no site',
+    add: 'Adicionar fotografias', addHint: 'Pode escolher muitas de uma vez, de qualquer tamanho: são reduzidas e comprimidas aqui no seu dispositivo antes de serem carregadas (cerca de 300–500 KB cada). A primeira fotografia é a capa do álbum.',
+    choose: 'Escolher fotografias…', photos: 'Fotografias carregadas', none: 'Ainda não há fotografias deste jogo.',
+    cover: 'Capa', makeCover: 'Usar como capa', delete: 'Eliminar', confirmDelete: 'Eliminar esta fotografia? Não é possível anular.',
+    deleted: 'Fotografia eliminada.', coverSet: 'Capa atualizada.',
   },
 
   partners: {

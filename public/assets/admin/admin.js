@@ -10,7 +10,10 @@
       'missing-key': 'La traduzione automatica non è ancora attiva: manca la chiave ANTHROPIC_API_KEY su Cloudflare.',
       refused: 'Il servizio di traduzione non ha tradotto questo testo. Prova a tradurlo a mano.',
       'too-long': 'Il testo è troppo lungo per una traduzione sola. Prova a dividerlo.',
-      whiteLogo: 'Caricato, ma il logo ha lo sfondo bianco: sul sito apparirà dentro un riquadro bianco. Se puoi, usa un PNG con sfondo trasparente. Ricordati di salvare.'
+      whiteLogo: 'Caricato, ma il logo ha lo sfondo bianco: sul sito apparirà dentro un riquadro bianco. Se puoi, usa un PNG con sfondo trasparente. Ricordati di salvare.',
+      galWorking: 'Compressione e caricamento: {d} di {n}…', galDone: 'Fatto: {n} foto caricate.',
+      galFailed: '{f}: non riuscita. Se è una foto HEIC o RAW, salvala come JPG e riprova.',
+      galLeave: 'Il caricamento delle foto è ancora in corso.'
     },
     pt: {
       linkUrl: 'Endereço da ligação (https://…)', uploading: 'A carregar…', uploaded: 'Carregada. Não se esqueça de guardar.',
@@ -21,7 +24,10 @@
       'missing-key': 'A tradução automática ainda não está ativa: falta a chave ANTHROPIC_API_KEY no Cloudflare.',
       refused: 'O serviço de tradução não traduziu este texto. Traduza-o manualmente.',
       'too-long': 'O texto é demasiado longo para uma só tradução. Experimente dividi-lo.',
-      whiteLogo: 'Carregado, mas o logótipo tem fundo branco: no site vai aparecer dentro de um retângulo branco. Se possível, use um PNG com fundo transparente. Não se esqueça de guardar.'
+      whiteLogo: 'Carregado, mas o logótipo tem fundo branco: no site vai aparecer dentro de um retângulo branco. Se possível, use um PNG com fundo transparente. Não se esqueça de guardar.',
+      galWorking: 'A comprimir e carregar: {d} de {n}…', galDone: 'Concluído: {n} fotografias carregadas.',
+      galFailed: '{f}: não foi possível. Se for uma fotografia HEIC ou RAW, guarde-a como JPG e tente de novo.',
+      galLeave: 'O carregamento das fotografias ainda está a decorrer.'
     }
   };
   var T = MSG[document.body.getAttribute('data-lang')] || MSG.it;
@@ -163,6 +169,79 @@
   });
   var pos = document.getElementById('image_pos');
   if (pos && preview) pos.addEventListener('change', function () { preview.style.backgroundPosition = pos.value; });
+
+  // ---------- match gallery: many photos, compressed in the browser ----------
+  // Each photo becomes a large WebP (max 2000 px, ~300-500 KB) and a thumbnail (max 640 px).
+  // Drawing on a canvas also drops EXIF data such as GPS position. JPEG is the fallback
+  // for browsers that cannot encode WebP.
+  var galInput = document.getElementById('gal-files');
+  if (galInput) {
+    var galStatus = document.getElementById('gal-status'), galErrors = document.getElementById('gal-errors');
+    var fmt = function (s, o) { return s.replace(/\{(\w)\}/g, function (_, k) { return o[k]; }); };
+    var busy = false;
+    window.addEventListener('beforeunload', function (e) { if (busy) { e.preventDefault(); e.returnValue = T.galLeave; } });
+    var load = function (file) {
+      return new Promise(function (resolve, reject) {
+        var img = new Image();
+        img.onload = function () { resolve(img); };
+        img.onerror = function () { reject(new Error('decode')); };
+        img.src = URL.createObjectURL(file);
+      });
+    };
+    var encode = function (img, max, q) {
+      var k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+      var c = document.createElement('canvas');
+      c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+      var g = c.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(img, 0, 0, c.width, c.height);
+      return new Promise(function (resolve, reject) {
+        var tries = 0;
+        var go = function (type, qq) {
+          c.toBlob(function (b) {
+            if (!b) return reject(new Error('encode'));
+            if (type === 'image/webp' && b.type !== 'image/webp') return go('image/jpeg', qq + 0.04);
+            if (b.size > 800 * 1024 && tries++ < 3) return go(type, qq - 0.1);
+            resolve({ blob: b, w: c.width, h: c.height });
+          }, type, qq);
+        };
+        go('image/webp', q);
+      });
+    };
+    var one = function (file) {
+      return load(file).then(function (img) {
+        return Promise.all([encode(img, 2000, 0.8), encode(img, 640, 0.72)]).then(function (r) {
+          URL.revokeObjectURL(img.src);
+          var ext = function (b) { return b.type === 'image/webp' ? '.webp' : '.jpg'; };
+          var data = new FormData();
+          data.append('file', new File([r[0].blob], 'photo' + ext(r[0].blob), { type: r[0].blob.type }));
+          data.append('thumb', new File([r[1].blob], 'thumb' + ext(r[1].blob), { type: r[1].blob.type }));
+          data.append('w', r[0].w); data.append('h', r[0].h);
+          return fetch('/admin/api/partite/' + galInput.getAttribute('data-match') + '/foto', { method: 'POST', body: data, credentials: 'same-origin' });
+        });
+      }).then(function (res) { if (!res.ok) throw new Error('upload'); });
+    };
+    galInput.addEventListener('change', function () {
+      var files = Array.prototype.slice.call(galInput.files);
+      if (!files.length) return;
+      busy = true; galInput.disabled = true; galErrors.innerHTML = '';
+      var done = 0, ok = 0, i = 0;
+      var show = function () { galStatus.textContent = fmt(T.galWorking, { d: done, n: files.length }); };
+      show();
+      // Two at a time: fast enough, and gentle with the memory of older phones.
+      var worker = function () {
+        if (i >= files.length) return Promise.resolve();
+        var f = files[i++];
+        return one(f).then(function () { ok++; }, function () {
+          var li = document.createElement('li'); li.textContent = fmt(T.galFailed, { f: f.name }); galErrors.appendChild(li);
+        }).then(function () { done++; show(); return worker(); });
+      };
+      Promise.all([worker(), worker()]).then(function () {
+        busy = false;
+        galStatus.textContent = fmt(T.galDone, { n: ok });
+        if (!galErrors.children.length) location.reload();
+        else { galInput.disabled = false; galInput.value = ''; if (ok) setTimeout(function () { location.reload(); }, 6000); }
+      });
+    });
+  }
 
   // ---------- AI translation ----------
   var FIELDS = ['title', 'excerpt', 'pull', 'gfx_cap'];

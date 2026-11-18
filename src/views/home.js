@@ -10,7 +10,8 @@ function compLine(t, m) {
   return r ? `${compName(t, m)} — ${r}` : compName(t, m);
 }
 
-function nextbar(t, teams, last, next, matchday) {
+function nextbar(t, teams, last, next, matchday, photos) {
+  const n = last ? photos.get(last.id) || 0 : 0;
   const left = last ? html`<div class="col col-left">
     <span class="lbl">${t.home.lastResult}</span>
     <div class="mt"><span>${teamName(teams, last.home_id)}</span><span class="score">${last.home_score} - ${last.away_score}</span><span>${teamName(teams, last.away_id)}</span></div>
@@ -20,6 +21,7 @@ function nextbar(t, teams, last, next, matchday) {
       ${last.time ? html`<span><i class="ti ti-clock"></i>${last.time}</span>` : ''}
       ${last.venue ? html`<span><i class="ti ti-map-pin"></i>${last.venue}</span>` : ''}
     </div>
+    ${n ? html`<a class="last-ph" href="${url(t.lang, `/gallery/${last.id}`)}">${t.gallery.photosLink(n)} <i class="ti ti-arrow-right"></i></a>` : ''}
   </div>` : html`<div class="col col-left"></div>`;
   const right = next ? html`<div class="col col-right">
     <span class="lbl">${t.home.nextMatch}</span>
@@ -67,7 +69,7 @@ function fixtures(t, teams, upcoming) {
 </div></section>`;
 }
 
-export function homePage({ t, teams, last, upcoming, news, partners, placements }) {
+export function homePage({ t, teams, last, upcoming, news, partners, placements, photos }) {
   const h = t.home, u = (p) => url(t.lang, p);
   const kit = ['kit-home-2526', 'kit-home-front', 'kit-player-tunnel', 'kit-player-wearing', 'kit-sleeve-detail'];
   const main = placements.main_band;
@@ -80,7 +82,7 @@ export function homePage({ t, teams, last, upcoming, news, partners, placements 
     <div class="acts"><a class="b b-gold" href="${u('/season')}">${h.ctaFixtures} <i class="ti ti-arrow-right"></i></a><a class="b b-line" href="${u('/club')}">${h.ctaStory}</a></div>
   </div></div>
 </section>
-${nextbar(t, teams, last, upcoming[0], placements.matchday)}
+${nextbar(t, teams, last, upcoming[0], placements.matchday, photos)}
 <section class="section about-band"><div class="wrap">
   <div class="about">
     <div class="txt">

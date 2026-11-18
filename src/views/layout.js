@@ -2,7 +2,7 @@ import { html, raw } from '../lib/html.js';
 import { url, LANGS } from '../lib/i18n.js';
 
 const NAV = [
-  ['home', '/'], ['firstTeam', '/first-team'], ['season', '/season'], ['club', '/club'], ['news', '/news'],
+  ['home', '/'], ['firstTeam', '/first-team'], ['season', '/season'], ['club', '/club'], ['news', '/news'], ['gallery', '/gallery'],
 ];
 
 function header(t, active, path) {

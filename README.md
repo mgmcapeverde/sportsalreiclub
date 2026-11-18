@@ -38,6 +38,17 @@ Impostazioni sul Worker (Cloudflare → Impostazioni → Variabili e segreti):
 Bucket R2 `sportsalreiclub-media` (binding `MEDIA`) per le immagini caricate, servite su `/media/...`.
 In locale: `.dev.vars` con `SETUP_KEY=...` (e facoltativamente `ANTHROPIC_API_KEY=...`).
 
+## Galleria foto delle partite
+
+Ogni partita può avere un album: nel pannello, **Partite** → icona 📷 sulla riga della partita.
+Le foto si scelgono anche tutte insieme e vengono **compresse nel browser** prima di partire
+(`public/assets/admin/admin.js`): versione grande WebP max 2000 px (≈ 300–800 KB) e miniatura max 640 px;
+il disegno su canvas elimina anche i dati EXIF (posizione GPS). Se il browser non sa creare WebP usa JPEG.
+Sul server: tabella `match_photos` (migrazione 0008), file in R2 sotto `gallery/AAAA/MM/`.
+Sul sito: `/gallery` (album, dal più recente) e `/gallery/<id partita>` con visore a schermo intero;
+link "N fotos" nella pagina Stagione e sotto l'ultimo risultato in home. La prima foto è la copertina.
+Eliminando una partita si eliminano anche le sue foto.
+
 ## Caratteri e icone
 
 Caratteri (Inter, Bebas Neue) e icone (Tabler Icons 3.1.0) sono dentro il sito, in `public/assets/fonts/`

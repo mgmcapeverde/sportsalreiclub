@@ -11,6 +11,7 @@ import { matchesPage, saveMatches } from './matches.js';
 import { partnersPage, editPartner, savePartner, savePlacements } from './partners.js';
 import { accountPage, saveAccount, setLanguage } from './account.js';
 import { teamsPage, editTeam, saveTeam } from './teams.js';
+import { galleryPage, uploadPhoto, saveGallery } from './gallery.js';
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
@@ -144,6 +145,7 @@ export async function handleAdmin(request, env, url) {
   if ((m = path.match(/^\/admin\/notizie\/(\d+)\/anteprima$/))) return preview({ ...ctx, id: +m[1] });
 
   if (path === '/admin/partite') return method === 'POST' ? saveMatches({ ...ctx, form }) : matchesPage(ctx);
+  if ((m = path.match(/^\/admin\/partite\/(\d+)\/foto$/))) return method === 'POST' ? saveGallery({ ...ctx, id: +m[1], form }) : galleryPage({ ...ctx, id: +m[1] });
   if (path === '/admin/squadre') return teamsPage(ctx);
   if ((m = path.match(/^\/admin\/squadre\/([a-z0-9-]+)$/))) return method === 'POST' ? saveTeam({ ...ctx, id: m[1], form }) : editTeam({ ...ctx, id: m[1] });
 
@@ -157,6 +159,7 @@ export async function handleAdmin(request, env, url) {
 
   if (path === '/admin/api/immagine' && method === 'POST') return upload(ctx);
   if (path === '/admin/api/traduci' && method === 'POST') return translate(ctx);
+  if ((m = path.match(/^\/admin\/api\/partite\/(\d+)\/foto$/)) && method === 'POST') return uploadPhoto({ ...ctx, id: +m[1] });
 
   const L = adminT(user.lang);
   return htmlResponse(adminPage({ user, active: '', title: L.notFound, body: html`<h1>${L.notFound}</h1><p class="mt"><a href="/admin">${L.backHome}</a></p>` }), 404);

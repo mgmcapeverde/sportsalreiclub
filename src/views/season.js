@@ -1,11 +1,12 @@
 import { html } from '../lib/html.js';
-import { monthYear, parseDate } from '../lib/i18n.js';
+import { monthYear, parseDate, url } from '../lib/i18n.js';
 import { computeTable } from '../lib/standings.js';
 import { today } from '../lib/db.js';
 import { page } from './layout.js';
 import { teamName, teamCrest, crestClass, roundLabel, resultLetter, sponsorInline, dayMonth } from './parts.js';
 
-function fixtureRow(t, teams, comp, m, nextId) {
+function fixtureRow(t, teams, comp, m, nextId, photos) {
+  const n = photos.get(m.id) || 0;
   const res = resultLetter(teams, m);
   const label = { w: t.match.win, d: t.match.draw, l: t.match.loss };
   const { d } = parseDate(m.date);
@@ -17,17 +18,18 @@ function fixtureRow(t, teams, comp, m, nextId) {
         : html`<span class="vs">${t.match.vs}</span>`}<span>${teamName(teams, m.away_id)}</span></div>
       <div class="v">${m.venue ? html`<span><i class="ti ti-map-pin"></i>${m.venue}</span>` : ''}${res
         ? html`<span class="rb ${res}">${label[res]}</span>`
-        : html`<span><i class="ti ti-clock"></i>${m.time || t.match.timeTbc}</span>`}</div>
+        : html`<span><i class="ti ti-clock"></i>${m.time || t.match.timeTbc}</span>`}${n
+        ? html`<a class="fx-ph" href="${url(t.lang, `/gallery/${m.id}`)}">${t.gallery.photosLink(n)} <i class="ti ti-arrow-right"></i></a>` : ''}</div>
     </div>`;
 }
 
-function fixtureList(t, teams, comp, matches, nextId) {
+function fixtureList(t, teams, comp, matches, nextId, photos) {
   const out = [];
   let month = '';
   for (const m of matches) {
     const mm = m.date.slice(0, 7);
     if (mm !== month) { month = mm; out.push(html`<div class="fx-month">${monthYear(t, m.date)}</div>`); }
-    out.push(fixtureRow(t, teams, comp, m, nextId));
+    out.push(fixtureRow(t, teams, comp, m, nextId, photos));
   }
   return html`<div class="fx-list">${out}</div>`;
 }
@@ -53,7 +55,7 @@ function allRounds(t, teams, comp) {
   </div></details>`;
 }
 
-export function seasonPage({ t, teams, comps, partners, placements }) {
+export function seasonPage({ t, teams, comps, partners, placements, photos }) {
   const s = t.season;
   const ourId = [...teams.values()].find((x) => x.is_us)?.id;
   const now = today();
@@ -70,7 +72,7 @@ export function seasonPage({ t, teams, comps, partners, placements }) {
     const played = c.matches.some((m) => m.status === 'played');
     return html`<div class="comp-panel" id="${c.id}" data-tab-panel${c.id === current ? '' : ' data-inactive'}>
     <div class="sec-h"><h2><span class="sec-eyebrow">${s.calendar} ${c.season}</span>${name}</h2>${sponsorInline(t.partners.matchCentre, placements.match_centre)}</div>
-    ${fixtureList(t, teams, c, ours, next?.id)}
+    ${fixtureList(t, teams, c, ours, next?.id, photos)}
     ${c.kind === 'league' ? html`
     <div class="comp-table" id="standings-${c.id}">
       <div class="sec-h"><h2><span class="sec-eyebrow">${name}</span>${s.standingsOf}</h2>${sponsorInline(t.partners.standings, placements.standings)}</div>
