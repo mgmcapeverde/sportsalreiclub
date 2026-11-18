@@ -1,7 +1,8 @@
 // Password login with server-side sessions stored in D1.
 
 const COOKIE = 'ssrc_admin';
-const SESSION_DAYS = 14;
+const SESSION_DAYS = 1;        // without “stay signed in”: the cookie also ends when the browser closes
+const REMEMBER_DAYS = 180;    // with “stay signed in” on this device
 const MAX_FAILS = 8;          // per IP, per 15 minutes
 const ITERATIONS = 100000;    // PBKDF2 (the Workers runtime caps it at 100k)
 
@@ -50,12 +51,13 @@ export async function checkLogin(db, request, email, password) {
   return null;
 }
 
-export async function startSession(db, userId) {
+export async function startSession(db, userId, remember = true) {
   const token = hex(crypto.getRandomValues(new Uint8Array(32)));
+  const days = remember ? REMEMBER_DAYS : SESSION_DAYS;
   await db.prepare(`DELETE FROM admin_sessions WHERE expires_at < datetime('now')`).run();
-  await db.prepare(`INSERT INTO admin_sessions (token_hash, user_id, expires_at) VALUES (?, ?, datetime('now', '+${SESSION_DAYS} days'))`)
+  await db.prepare(`INSERT INTO admin_sessions (token_hash, user_id, expires_at) VALUES (?, ?, datetime('now', '+${days} days'))`)
     .bind(await sha256(token), userId).run();
-  return `${COOKIE}=${token}; Path=/admin; HttpOnly; Secure; SameSite=Lax; Max-Age=${SESSION_DAYS * 86400}`;
+  return `${COOKIE}=${token}; Path=/admin; HttpOnly; Secure; SameSite=Lax${remember ? `; Max-Age=${days * 86400}` : ''}`;
 }
 
 function readCookie(request) {

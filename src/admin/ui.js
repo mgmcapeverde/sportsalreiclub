@@ -53,8 +53,9 @@ export function loginPage({ L, flash, email = '' }) {
   ${flash ? html`<div class="flash ${flash[0]}">${flash[1]}</div>` : ''}
   <form class="panel" method="post" action="/admin/accedi?lang=${L.lang}">
     <h1 style="margin-bottom:18px">${L.login.h1}</h1>
-    <div class="field"><label for="email">${L.login.email}</label><input id="email" name="email" type="email" autocomplete="username" required value="${email}"></div>
+    <div class="field"><label for="email">${L.login.email}</label><input id="email" name="email" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required value="${email}"></div>
     <div class="field"><label for="password">${L.login.password}</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+    <label class="check" style="margin:4px 0 18px"><input type="checkbox" name="remember" value="1" checked> ${L.login.remember}</label>
     <button class="btn primary" type="submit" style="width:100%">${L.login.submit}</button>
   </form>
   ${langLinks(L, '/admin/accedi')}
@@ -71,7 +72,7 @@ export function setupPage({ L, error }) {
     <p class="muted" style="margin-bottom:18px">${s.intro}</p>
     <div class="field"><label for="key">${s.key}</label><input id="key" name="key" type="password" required></div>
     <div class="field"><label for="name">${s.name}</label><input id="name" name="name" type="text" required></div>
-    <div class="field"><label for="email">${s.email}</label><input id="email" name="email" type="email" required></div>
+    <div class="field"><label for="email">${s.email}</label><input id="email" name="email" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required></div>
     <div class="field"><label for="password">${s.password} <span class="hint">${s.min}</span></label><input id="password" name="password" type="password" minlength="10" required autocomplete="new-password"></div>
     <button class="btn primary" type="submit" style="width:100%">${s.submit}</button>
   </form>

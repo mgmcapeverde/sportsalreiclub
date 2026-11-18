@@ -12,6 +12,7 @@ import { partnersPage, editPartner, savePartner, savePlacements } from './partne
 import { accountPage, saveAccount, setLanguage } from './account.js';
 import { teamsPage, editTeam, saveTeam } from './teams.js';
 import { galleryPage, uploadPhoto, saveGallery } from './gallery.js';
+import { LOGIN_RE } from './account.js';
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
@@ -112,7 +113,7 @@ export async function handleAdmin(request, env, url) {
     const f = await request.formData().catch(() => new FormData());
     const name = String(f.get('name') || '').trim(), email = String(f.get('email') || '').trim(), pass = String(f.get('password') || '');
     if (!auth.setupKeyMatches(env, f.get('key'))) return htmlResponse(setupPage({ L: G, error: G.setup.badKey }), 403);
-    if (!name || !email.includes('@') || pass.length < 10) return htmlResponse(setupPage({ L: G, error: G.setup.missing }), 400);
+    if (!name || !LOGIN_RE.test(email) || pass.length < 10) return htmlResponse(setupPage({ L: G, error: G.setup.missing }), 400);
     const h = await auth.hashPassword(pass);
     const u = await db.prepare('INSERT INTO admin_users (email, name, pass_hash, pass_salt, is_owner, lang) VALUES (?, ?, ?, ?, 1, ?) RETURNING id').bind(email, name, h.hash, h.salt, G.lang).first();
     return redirect('/admin', { 'set-cookie': await auth.startSession(db, u.id) });
@@ -125,7 +126,7 @@ export async function handleAdmin(request, env, url) {
     if (await auth.tooManyAttempts(db, auth.clientIp(request))) return htmlResponse(loginPage({ L: G, flash: ['err', G.flash.locked], email: f.get('email') }), 429);
     const user = await auth.checkLogin(db, request, f.get('email'), f.get('password'));
     if (!user) return htmlResponse(loginPage({ L: G, flash: ['err', G.flash['bad-login']], email: f.get('email') }), 401);
-    return redirect('/admin', { 'set-cookie': await auth.startSession(db, user.id) });
+    return redirect('/admin', { 'set-cookie': await auth.startSession(db, user.id, f.get('remember') === '1') });
   }
 
   const user = await auth.currentUser(db, request);

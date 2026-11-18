@@ -3,6 +3,10 @@ import { hashPassword } from './auth.js';
 import { adminPage, htmlResponse, redirect } from './ui.js';
 import { adminT, ADMIN_LANGS } from './i18n.js';
 
+// Login name: an email or a simple user name (letters, numbers, . _ - @), 3–60 characters, no spaces.
+// It is stored in the admin_users.email column.
+export const LOGIN_RE = /^[A-Za-z0-9._@-]{3,60}$/;
+
 export async function accountPage({ db, user, url }) {
   const A = adminT(user.lang).account;
   const { results: users } = user.is_owner ? await db.prepare('SELECT id, name, email, is_owner, lang FROM admin_users ORDER BY id').all() : { results: [] };
@@ -19,9 +23,10 @@ export async function accountPage({ db, user, url }) {
     <div class="list" style="margin-bottom:18px">${users.map((u) => html`<div class="row"><span class="grow"><span class="t">${u.name}</span><span class="s">${u.email} · ${ADMIN_LANGS[u.lang]?.langName || u.lang}${u.is_owner ? ` · ${A.owner}` : ''}</span></span>
       ${u.id !== user.id ? html`<form method="post" action="/admin/account"><input type="hidden" name="uid" value="${u.id}"><button class="btn small danger" type="submit" name="action" value="remove" data-confirm="${A.confirmRemove(u.name)}">${A.remove}</button></form>` : ''}</div>`)}</div>
     <form method="post" action="/admin/account">
-      <h3 style="margin-bottom:10px">${A.addTitle}</h3>
+      <h3 style="margin-bottom:6px">${A.addTitle}</h3>
+      <p class="hint" style="margin-bottom:12px">${A.rights}</p>
       <div class="field"><label for="n_name">${A.name}</label><input id="n_name" name="name" type="text" required></div>
-      <div class="field"><label for="n_email">${A.email}</label><input id="n_email" name="email" type="email" required></div>
+      <div class="field"><label for="n_email">${A.email} <span class="hint">${A.emailHint}</span></label><input id="n_email" name="email" type="text" required pattern="[A-Za-z0-9._@\-]{3,60}" autocapitalize="none" autocomplete="off" spellcheck="false"></div>
       <div class="field"><label for="n_lang">${A.lang}</label><select id="n_lang" name="lang">${Object.values(ADMIN_LANGS).map((l) => html`<option value="${l.lang}"${l.lang === 'pt' ? raw(' selected') : ''}>${l.langName}</option>`)}</select></div>
       <div class="field"><label for="n_pass">${A.initial} <span class="hint">${A.initialHint}</span></label><input id="n_pass" name="password" type="text" minlength="10" required autocomplete="off"></div>
       <button class="btn" type="submit" name="action" value="add">${A.add}</button>
@@ -49,7 +54,7 @@ export async function saveAccount({ db, user, form }) {
   if (action === 'add') {
     const name = String(form.get('name') || '').trim(), email = String(form.get('email') || '').trim(), pass = String(form.get('password') || '');
     const lang = ADMIN_LANGS[form.get('lang')] ? form.get('lang') : 'pt';
-    if (!name || !/^[^@\s]+@[^@\s]+$/.test(email) || pass.length < 10) return redirect('/admin/account?msg=invalid');
+    if (!name || !LOGIN_RE.test(email) || pass.length < 10) return redirect('/admin/account?msg=invalid');
     if (await db.prepare('SELECT 1 FROM admin_users WHERE email = ?').bind(email).first()) return redirect('/admin/account?msg=invalid');
     const h = await hashPassword(pass);
     await db.prepare('INSERT INTO admin_users (email, name, pass_hash, pass_salt, lang) VALUES (?, ?, ?, ?, ?)').bind(email, name, h.hash, h.salt, lang).run();

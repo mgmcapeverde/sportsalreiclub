@@ -23,12 +23,12 @@ const it = {
   notFound: 'Pagina non trovata', backHome: 'Torna all’inizio',
 
   login: {
-    title: 'Accesso', h1: 'Accedi', email: 'Email', password: 'Password', submit: 'Entra',
+    title: 'Accesso', h1: 'Accedi', email: 'Nome di accesso o email', password: 'Password', submit: 'Entra', remember: 'Resta collegato su questo dispositivo',
   },
   setup: {
     title: 'Primo accesso', h1: 'Crea il primo account',
     intro: 'Serve la chiave di attivazione impostata su Cloudflare (SETUP_KEY). Questo account potrà poi creare gli altri.',
-    key: 'Chiave di attivazione', name: 'Il tuo nome', email: 'Email', password: 'Password', min: '(almeno 10 caratteri)', submit: 'Crea account',
+    key: 'Chiave di attivazione', name: 'Il tuo nome', email: 'Nome di accesso o email', password: 'Password', min: '(almeno 10 caratteri)', submit: 'Crea account',
     noKey: 'Prima va impostato il segreto SETUP_KEY sul Worker in Cloudflare.',
     badKey: 'Chiave di attivazione non corretta.', missing: 'Compila tutti i campi (password di almeno 10 caratteri).',
   },
@@ -120,7 +120,8 @@ const it = {
     title: 'Account', mine: 'Il mio account',
     password: 'Cambia password', current: 'Password attuale', next: 'Nuova password', min: '(almeno 10 caratteri)', change: 'Cambia password',
     people: 'Persone che possono usare il pannello', owner: 'gestisce gli account', remove: 'Togli accesso', confirmRemove: (n) => `Togliere l’accesso a ${n}?`,
-    addTitle: 'Aggiungi una persona', name: 'Nome', email: 'Email', initial: 'Password iniziale', initialHint: '(almeno 10 caratteri — comunicala a voce, poi potrà cambiarla)', add: 'Aggiungi',
+    addTitle: 'Aggiungi una persona', name: 'Nome', email: 'Nome di accesso', emailHint: '(es. clube o mario.rossi — oppure un’email; senza spazi)', initial: 'Password', initialHint: '(almeno 10 caratteri — comunicala a voce)', add: 'Aggiungi',
+    rights: 'Chi aggiungi può modificare tutto il sito (notizie, partite, foto, partner, squadre); solo tu puoi creare o togliere accessi.',
     lang: 'Lingua del pannello',
   },
 };
@@ -148,12 +149,12 @@ const pt = {
   notFound: 'Página não encontrada', backHome: 'Voltar ao início',
 
   login: {
-    title: 'Entrar', h1: 'Entrar', email: 'Email', password: 'Palavra-passe', submit: 'Entrar',
+    title: 'Entrar', h1: 'Entrar', email: 'Nome de acesso ou email', password: 'Palavra-passe', submit: 'Entrar', remember: 'Manter a sessão neste dispositivo',
   },
   setup: {
     title: 'Primeiro acesso', h1: 'Criar a primeira conta',
     intro: 'É precisa a chave de ativação definida no Cloudflare (SETUP_KEY). Esta conta poderá depois criar as outras.',
-    key: 'Chave de ativação', name: 'O seu nome', email: 'Email', password: 'Palavra-passe', min: '(pelo menos 10 caracteres)', submit: 'Criar conta',
+    key: 'Chave de ativação', name: 'O seu nome', email: 'Nome de acesso ou email', password: 'Palavra-passe', min: '(pelo menos 10 caracteres)', submit: 'Criar conta',
     noKey: 'Primeiro é preciso definir o segredo SETUP_KEY no Worker do Cloudflare.',
     badKey: 'Chave de ativação incorreta.', missing: 'Preencha todos os campos (palavra-passe com pelo menos 10 caracteres).',
   },
@@ -245,7 +246,8 @@ const pt = {
     title: 'Contas', mine: 'A minha conta',
     password: 'Alterar palavra-passe', current: 'Palavra-passe atual', next: 'Nova palavra-passe', min: '(pelo menos 10 caracteres)', change: 'Alterar palavra-passe',
     people: 'Pessoas que podem usar o painel', owner: 'gere as contas', remove: 'Retirar acesso', confirmRemove: (n) => `Retirar o acesso a ${n}?`,
-    addTitle: 'Adicionar uma pessoa', name: 'Nome', email: 'Email', initial: 'Palavra-passe inicial', initialHint: '(pelo menos 10 caracteres — comunique-a pessoalmente; depois pode alterá-la)', add: 'Adicionar',
+    addTitle: 'Adicionar uma pessoa', name: 'Nome', email: 'Nome de acesso', emailHint: '(ex. clube ou joao.silva — ou um email; sem espaços)', initial: 'Palavra-passe', initialHint: '(pelo menos 10 caracteres — comunique-a pessoalmente)', add: 'Adicionar',
+    rights: 'Quem adicionar pode alterar todo o site (notícias, jogos, fotografias, parceiros, equipas); só você pode criar ou retirar acessos.',
     lang: 'Língua do painel',
   },
 };
